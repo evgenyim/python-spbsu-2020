@@ -39,8 +39,13 @@ class Array(object):  # noqa: WPS214
 
         Returns:
             array_sum: sum of input arrays.
+
+        Raises:
+            TypeError: if other is not of Array type.
         """
-        elements_sum = self._data + other[:]  # noqa: WPS110
+        if not isinstance(other, Array):
+            raise TypeError
+        elements_sum = self._data + other.get_data()  # noqa: WPS110
         return Array(*elements_sum)
 
     def index(self, elem):
@@ -91,3 +96,26 @@ class Array(object):  # noqa: WPS214
             value: element from storage
         """
         return self._data[index]
+
+    def __eq__(self, other):
+        """
+        Remove element by index.
+
+        Args:
+            other: Array to compare.
+
+        Returns:
+            equal: True if Arrays are equal, else False.
+        """
+        if not isinstance(other, Array):
+            return False
+        return self._data == other.get_data()
+
+    def get_data(self):
+        """
+        Return storage.
+
+        Returns:
+            data: storage.
+        """
+        return self._data
